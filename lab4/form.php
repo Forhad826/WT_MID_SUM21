@@ -147,7 +147,7 @@
 		
 		if(empty($_POST["address"])){
 			$hasError=true;
-			$err_address="Address Required";
+			$err_address="Address Required/something empty";
 		}
 		else
 		{
