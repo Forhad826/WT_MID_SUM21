@@ -34,8 +34,10 @@
 	$bio="";
 	$err_bio="";
 	
-	for($i=1;$i<=31;$i++){
-	$d= array("$i");}
+	$d= array("1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16",
+	"17","18","19","20","21","22","23","24","25","26","27","28","29","30","31");
+	$m=array("January","February","March","April","May","June","July","August","September","October","November","December");
+	$y=array("2001","2000","1999","1998","1997","1996","1995","1994","1993","1992","1991");
 	
 	
 	$hasError=false;
@@ -179,6 +181,29 @@
 		}
 		
 		
+		if(!isset($_POST["day"])){
+			$hasError = true;
+			$err_day= "All/Something empty";
+		}
+		else{
+			$day = $_POST["day"];
+		}
+		if(!isset($_POST["month"])){
+			$hasError = true;
+			$err_day= "All/Something empty";
+		}
+		else{
+			$month = $_POST["month"];
+		}
+		if(!isset($_POST["year"])){
+			$hasError = true;
+			$err_day= "All/Something empty";
+		}
+		else{
+			$year = $_POST["year"];
+		}
+		
+		
 		if(!isset($_POST["gender"])){
 			$hasError = true;
 			$err_gender = "Gender Required";
@@ -189,7 +214,7 @@
 		
 		if(!isset($_POST["abouts"])){
 			$hasError = true;
-			$err_about = "about Required";
+			$err_about = "About Required";
 		}else{
 			$abouts = $_POST["abouts"];
 		}
@@ -285,44 +310,47 @@
 					   <br>
 					<span><?php echo $err_address;?></span></td>
 				</tr>
-				<td align="right">Birth Date</td>
-					<td>:
-					<select class="" name="day">
-						<?php
-							for($i=0;$i<=31;++$i){
-								$time=strtotime(sprintf('+%d days',$i));
-								$day = date('d',$time);
-								$days =date('d',$time);
-								printf('<option value="%s">%s</option>',$day,$days);
-							}
-
-						?>
-					</select>
-
-					<select class="" name="month">
-						<?php
-							for($i=0;$i<=12;++$i){
-								$time=strtotime(sprintf('--%d months',$i));
-								$month = date('m',$time);
-								$monthname =date('F',$time);
-								printf('<option value="%s">%s</option>',$month,$monthname);
-							}
-
-						?>
-					</select>
-					<select class="" name="year">
-						<?php $y=(int)date("Y");?>
-						<option value="<?php echo $y;?>"selected="true"><?php echo $y;?></option>
-						<?php $y--;
-						for(;$y>"2000";$y--){?>
-
-							<option value="<?php echo $y;?>"><?php echo $y; ?></option>
-						<?php }?>
-						}
-					</select>
-						
-						
+					<tr>
+					<td align="right">Birth Date</td>
+					<td>:<select name="day">
+							<option selected disabled>Day</option>
+							<?php
+								foreach($d as $p){
+									if($p == $day)
+										echo "<option selected>$p</option>";
+									else
+										echo "<option>$p</option>";
+								}
+							?>
+							
+						</select> 
+						<select name="month">
+							<option selected disabled>Month</option>
+							<?php
+								foreach($m as $q){
+									if($q==$month)
+										echo "<option selected>$q</option>";
+									else
+										echo "<option>$q</option>";
+								}
+							?>
+						</select>
+						<select name="year">
+							<option selected disabled>Year</option>
+							<?php
+								foreach($y as $o){
+									if($o == $year)
+										echo "<option selected>$o</option>";
+									else
+										echo "<option>$o</option>";
+								}
+							?>
+							
+						</select>
+						<span><?php echo $err_day;?></span>
 					</td>
+				</tr>
+				
 				<tr>
 					<td align="right">Gender</td>
 					<td>:<input type="radio" value="Male" <?php if($gender == "Male") echo "checked";?> name="gender"> Male <input type="radio" <?php if($gender == "Female") echo "checked";?> value="Female" name="gender"> Female <br>
